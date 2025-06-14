@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -10,6 +11,7 @@ app.listen(8080, () => {
   console.log("Server started");
 });
 
+const API = process.env.API_URL;
 let products = [];
 
 app.post("/products", async (req, res) => {
@@ -45,7 +47,7 @@ const userSchema = mongoose.Schema({
 });
 
 const userModel = mongoose.model("user", userSchema);
-const url = "mongodb+srv://spkumar:1234@cluster0.u2v9bhw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const url = API;
 mongoose.connect(url).then(()=>{
   app.listen(8080,()=>{
     console.log("Server Started");
